@@ -23,18 +23,10 @@ unsigned long long int ack(int m, int n){
     }
 
     if (n > 0 && ans[m-FID][n-1] != 0) ans[m-FID][n] = ack(m-1, ans[m-FID][n-1]);
-    else{
-        if (n == 0) {
-            if (m == 1) ans[m-FID][n] = 2;
-            else ans[m-3][n] = ack(m-1, 1);
-        }
-        else if (m == 1) ans[m-FID][n] = ack(m, n-1) + 1;
-        else if (n == 1) {
-            if (m == 1) ans[m-FID][n] = ack(m-1, 2);
-            else ans[m-FID][n] = ack(m-1, ack(m-1, 1));
-        }
-        else ans[m-FID][n] = ack(m-1, ack(m, n-1));
-    }
+    else if (n == 0) ans[m-3][n] = ack(m-1, 1);
+    else if (n == 1) ans[m-FID][n] = ack(m-1, ack(m-1, 1));
+    else ans[m-FID][n] = ack(m-1, ack(m, n-1));
+    
     return ans[m-FID][n];
 
 }
